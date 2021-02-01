@@ -40,7 +40,7 @@ class _SignInPageState extends State<SignInPage> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          color: Color(0xff5aad75),
+          color: Colors.red[500],
           image: DecorationImage(
             image: AssetImage("assets/bg.png"),
             fit: BoxFit.cover,
