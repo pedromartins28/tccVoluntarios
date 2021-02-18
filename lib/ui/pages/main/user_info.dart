@@ -303,25 +303,6 @@ class _UserInfoPageState extends State<UserInfoPage>
                           width: double.infinity,
                           margin: EdgeInsets.all(18.0),
                         ),
-                        Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                snapshot.data.documents[0]['rating']
-                                    .toDouble()
-                                    .toStringAsFixed(2),
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 18.0),
-                              ),
-                              Icon(
-                                Icons.star,
-                                color: Theme.of(context).primaryColor,
-                              )
-                            ],
-                          ),
-                        ),
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: 24.0),
                           child: Text(
@@ -350,7 +331,7 @@ class _UserInfoPageState extends State<UserInfoPage>
                         ),
                         dataUnit("E-mail", user.email),
                         dataUnit(
-                            "Coletas Finalizadas",
+                            "Atendimentos Finalizados",
                             snapshot.data.documents[0]['finishedRequests']
                                 .toString()),
                         dataUnit("CPF", user.cpf),

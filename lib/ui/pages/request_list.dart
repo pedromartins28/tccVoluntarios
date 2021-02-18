@@ -68,7 +68,7 @@ class _StateRequestList extends State<RequestList>
             );
           } else {
             if (snapshot.data.documents.isEmpty)
-              return Center(child: Text("SEM COLETAS AQUI!"));
+              return Center(child: Text("SEM ATENDIMENTOS!"));
             else
               return ListView.builder(
                 shrinkWrap: true,
@@ -108,7 +108,7 @@ class _StateRequestList extends State<RequestList>
             );
           } else {
             if (snapshot.data.documents.isEmpty)
-              return Center(child: Text("SEM COLETAS AQUI!"));
+              return Center(child: Text("SEM ATENDIMENTOS!"));
             else
               return ListView.builder(
                 scrollDirection: Axis.vertical,
@@ -141,7 +141,7 @@ class _StateRequestList extends State<RequestList>
             );
           } else {
             if (snapshot.data.documents.isEmpty)
-              return Center(child: Text("SEM COLETAS AQUI!"));
+              return Center(child: Text("SEM ATENDIMENTOS!"));
             else
               return ListView.builder(
                 reverse: true,
@@ -495,14 +495,6 @@ class _StateRequestList extends State<RequestList>
                         overflow: TextOverflow.ellipsis,
                       ),
                     ],
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(right: 4),
-                    child: SmoothStarRating(
-                      rating: document['pickerRating'].toDouble(),
-                      borderColor: Colors.black,
-                      size: 20,
-                    ),
                   ),
                 ],
               ),

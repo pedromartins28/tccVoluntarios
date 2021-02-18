@@ -23,7 +23,7 @@ class _RequestHistoryPageState extends State<RequestHistoryPage> {
     final userId = appState?.user?.userId ?? '';
     return Scaffold(
       appBar: AppBar(
-        title: Text("Coletas Finalizadas"),
+        title: Text("Atendimentos Finalizados"),
         centerTitle: true,
       ),
       body: Container(
