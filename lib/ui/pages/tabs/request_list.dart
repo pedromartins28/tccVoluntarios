@@ -68,7 +68,7 @@ class _StateRequestList extends State<RequestList>
             );
           } else {
             if (snapshot.data.documents.isEmpty)
-              return Center(child: Text("SEM ATENDIMENTOS!"));
+              return Center(child: Text("SEM SOLICITAÇÕES!"));
             else
               return ListView.builder(
                 shrinkWrap: true,
@@ -108,7 +108,7 @@ class _StateRequestList extends State<RequestList>
             );
           } else {
             if (snapshot.data.documents.isEmpty)
-              return Center(child: Text("SEM ATENDIMENTOS!"));
+              return Center(child: Text("SEM SOLICITAÇÕES!"));
             else
               return ListView.builder(
                 scrollDirection: Axis.vertical,
@@ -141,7 +141,7 @@ class _StateRequestList extends State<RequestList>
             );
           } else {
             if (snapshot.data.documents.isEmpty)
-              return Center(child: Text("SEM ATENDIMENTOS!"));
+              return Center(child: Text("SEM SOLICITAÇÕES!"));
             else
               return ListView.builder(
                 reverse: true,

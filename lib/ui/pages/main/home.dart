@@ -294,7 +294,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       margin: const EdgeInsets.fromLTRB(92.0, 8.0, 92.0, 36.0),
       child: RaisedButton.icon(
         label: Text(
-          "COLETAR",
+          "SOLICITAÇÕES",
           style: TextStyle(
             fontSize: 24.0,
           ),
@@ -303,7 +303,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           borderRadius: BorderRadius.circular(6.0),
         ),
         color: Theme.of(context).primaryColor,
-        icon: Icon(FontAwesomeIcons.recycle),
+        icon: Icon(FontAwesomeIcons.heart),
         onPressed: () => _panel.open(),
         textColor: Colors.white,
       ),
@@ -357,7 +357,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   Column(
                     children: <Widget>[
                       Text(
-                        "COLETAS DISPONÍVEIS",
+                        "SOLICITAÇÕES",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 24.0,
@@ -365,7 +365,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         ),
                       ),
                       Text(
-                        "CLIQUE EM UMA COLETA PARA VÊ-LA NO MAPA",
+                        "CLIQUE EM UMA PARA VÊ-LA NO MAPA",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 12.0,
@@ -394,7 +394,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         ),
                       ),
                       Text(
-                        "CLIQUE EM UMA COLETA PARA VÊ-LA NO MAPA",
+                        "CLIQUE EM UMA PARA VÊ-LA NO MAPA",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 12.0,
@@ -441,7 +441,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     ),
                     Container(
                       padding: EdgeInsets.symmetric(vertical: 10.0),
-                      child: Text("SUAS COLETAS"),
+                      child: Text("ACEITOS"),
                     ),
                   ],
                 ),
