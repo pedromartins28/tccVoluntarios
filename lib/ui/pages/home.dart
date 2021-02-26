@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -359,7 +358,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         "SOLICITAÇÕES",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 24.0,
+                          fontSize: 18.0,
                           fontWeight: FontWeight.w400,
                         ),
                       ),

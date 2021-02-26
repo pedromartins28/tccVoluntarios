@@ -296,7 +296,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         label: Text(
           "SOLICITAÇÕES",
           style: TextStyle(
-            fontSize: 24.0,
+            fontSize: 18.0,
           ),
         ),
         shape: RoundedRectangleBorder(
@@ -360,7 +360,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         "SOLICITAÇÕES",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 24.0,
+                          fontSize: 18.0,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
