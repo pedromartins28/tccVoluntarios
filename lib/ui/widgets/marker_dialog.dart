@@ -25,13 +25,16 @@ class _MarkerDialogState extends State<MarkerDialog> {
   final BuildContext context;
   bool _visible = false;
   final String userId;
+  String rating;
 
   _MarkerDialogState(this.document, this.context, this.userId);
 
   @override
   void initState() {
     _db.collection('donors').document(document['donorId']).get().then((doc) {
-      setState(() {});
+      setState(() {
+        rating = doc['rating'].toStringAsFixed(2);
+      });
       Future.delayed(Duration(milliseconds: 100), () {
         setState(() {
           _visible = true;
@@ -103,13 +106,9 @@ class _MarkerDialogState extends State<MarkerDialog> {
               child: _buildDayFieldRow(document, Colors.grey)),
           Container(
             padding: EdgeInsets.all(10.0),
-            margin: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+            margin: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
             decoration: BoxDecoration(
               border: Border.all(width: 0.4, color: Colors.grey),
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(4.0),
-                bottomRight: Radius.circular(4.0),
-              ),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.max,
@@ -131,6 +130,33 @@ class _MarkerDialogState extends State<MarkerDialog> {
                     overflow: TextOverflow.clip,
                   ),
                 ),
+              ],
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(10.0),
+            margin: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+            decoration: BoxDecoration(
+              border: Border.all(width: 0.4, color: Colors.grey),
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(4.0),
+                bottomRight: Radius.circular(4.0),
+              ),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                Icon(FontAwesomeIcons.star, color: Colors.grey, size: 20),
+                SizedBox(width: 8),
+                rating == null
+                    ? FadingText('. . .',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w900))
+                    : AnimatedOpacity(
+                        child: Text(rating, style: TextStyle(fontSize: 17)),
+                        opacity: _visible ? 1.0 : 0.0,
+                        duration: Duration(milliseconds: 750),
+                      ),
               ],
             ),
           ),
