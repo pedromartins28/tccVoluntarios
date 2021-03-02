@@ -63,9 +63,7 @@ class _StateWidgetState extends State<StateWidget> {
 
   Future<String> changeUserPassword(oldPass, newPass) async {
     String res = await Auth.checkPassword(oldPass);
-    if (res ==
-        "NoSuchMethodError: The method '[]' was called on null." +
-            '\nReceiver: null\nTried calling: []("user")') {
+    if (res == "aprovado") {
       Auth.changePassword(newPass);
       return "Senha trocada com sucesso";
     } else if (res ==
@@ -75,7 +73,7 @@ class _StateWidgetState extends State<StateWidget> {
       });
       return "Senha antiga incorreta!";
     }
-    return null;
+    return "Erro desconhecido";
   }
 
   @override

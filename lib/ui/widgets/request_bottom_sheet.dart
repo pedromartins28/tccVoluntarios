@@ -23,7 +23,7 @@ class _RequestBottomSheetState extends State<RequestBottomSheet> {
   Firestore _db = Firestore.instance;
   final DocumentSnapshot document;
   Function _homeVisibility;
-  String rating, donorName;
+  String donorName;
   bool _visible = false;
   Widget icon;
 
@@ -42,7 +42,6 @@ class _RequestBottomSheetState extends State<RequestBottomSheet> {
     _db.collection('donors').document(document['donorId']).get().then((doc) {
       setState(() {
         donorName = doc['name'];
-        rating = doc['rating'].toStringAsFixed(2);
       });
       Future.delayed(Duration(milliseconds: 100), () {
         setState(() {
@@ -94,32 +93,10 @@ class _RequestBottomSheetState extends State<RequestBottomSheet> {
                         opacity: _visible ? 1.0 : 0.0,
                         duration: Duration(milliseconds: 750),
                       ),
-                rating == null
-                    ? FadingText('. . .',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w900))
-                    : AnimatedOpacity(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Icon(
-                              Icons.star_border,
-                              color: Colors.grey,
-                              size: 16,
-                            ),
-                            SizedBox(width: 2),
-                            Text(
-                              rating,
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.black54,
-                              ),
-                            )
-                          ],
-                        ),
-                        opacity: _visible ? 1.0 : 0.0,
-                        duration: Duration(seconds: 1),
-                      ),
+                FadingText(
+                  '. . .',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900),
+                ),
               ],
             )),
           ),

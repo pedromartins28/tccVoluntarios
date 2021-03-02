@@ -58,6 +58,7 @@ class Auth {
         AuthResult result = await user.reauthenticateWithCredential(
             EmailAuthProvider.getCredential(email: user.email, password: pass));
         user = result.user;
+        return "aprovado";
       }
     } catch (err) {
       return err.toString();
