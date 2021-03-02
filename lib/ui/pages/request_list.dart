@@ -4,6 +4,7 @@ import 'package:flushbar/flushbar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:voluntario/ui/widgets/request_bottom_sheet.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -478,7 +479,7 @@ class _StateRequestList extends State<RequestList>
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[Text("DATA:")],
+                children: <Widget>[Text("DATA:"), Text("SUA AVALIAÇÃO:")],
               ),
               SizedBox(height: 4),
               Row(

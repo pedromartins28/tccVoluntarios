@@ -166,7 +166,6 @@ class _MapPageState extends State<MapPage> {
                               ),
                               onMapCreated: mapState.onCreated,
                               onCameraMove: changeMarkerSize,
-                              zoomControlsEnabled: false,
                               myLocationButtonEnabled: false,
                               rotateGesturesEnabled: false,
                               tiltGesturesEnabled: false,
