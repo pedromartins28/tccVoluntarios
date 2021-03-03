@@ -63,6 +63,16 @@ class _RequestBottomSheetState extends State<RequestBottomSheet> {
     Navigator.of(context).pushNamed('/chat', arguments: request);
   }
 
+  void openForm(BuildContext context) {
+    Map request = {
+      'pickerId': document['pickerId'],
+      'donorId': document['donorId'],
+      'requestId': document.documentID,
+    };
+
+    Navigator.of(context).pushNamed('/form', arguments: request);
+  }
+
   @override
   Widget build(BuildContext context) {
     int notifications = document['pickerChatNotification'];
@@ -105,6 +115,20 @@ class _RequestBottomSheetState extends State<RequestBottomSheet> {
             margin: EdgeInsets.only(top: 8),
             width: double.infinity,
             color: Colors.grey,
+          ),
+          ListTile(
+            leading: Container(
+              width: 16,
+              child: Icon(
+                Icons.format_align_justify,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+            title: Text('FORMULÁRIO'),
+            onTap: () async {
+              Navigator.of(context).pop();
+              openForm(context);
+            },
           ),
           ListTile(
             leading: Container(
