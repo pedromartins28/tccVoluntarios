@@ -1,12 +1,10 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:voluntario/util/image_picker_handler.dart';
+import 'package:voluntario/models/chechLabel.dart';
+import 'package:voluntario/ui/widgets/forms.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:voluntario/models/user.dart';
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
-import 'dart:io';
+import 'package:voluntario/util/validator.dart';
 
 class FormPage extends StatefulWidget {
   final Map request;
@@ -15,209 +13,204 @@ class FormPage extends StatefulWidget {
   _FormPageState createState() => _FormPageState();
 }
 
-class _FormPageState extends State<FormPage>
-    with TickerProviderStateMixin, ImageHandlerListener {
+class _FormPageState extends State<FormPage> {
+  final ScrollController listScrollController = ScrollController();
+  final Firestore _db = Firestore.instance;
+  bool _visible = false;
+  String donorName;
+  String requestId;
+  String pickerId;
+  String donorId;
+  Map request;
+  bool _quest01 = false;
+  bool _quest02 = false;
+  bool _quest03 = false;
+  bool _quest04 = false;
   SharedPreferences prefs;
-  String photoUrl = '';
-  String userId = '';
-  User user;
-  bool isLoading = false;
-  ImageHandler imagePicker;
 
-  void readLocal() async {
-    prefs = await SharedPreferences.getInstance();
-    user = userFromJson(prefs.getString('user'));
-    photoUrl = user.photoUrl;
-    userId = user.userId;
-
-    setState(() {});
-  }
+  final TextEditingController _unidadeBasicaSaudeController =
+      TextEditingController();
 
   @override
   void initState() {
+    initializeIds();
     super.initState();
-    readLocal();
-
-    imagePicker = ImageHandler(this, this.context);
   }
 
-  @override
-  userImage(File _image) {
-    if (_image != null) uploadFile(_image);
+  initializeIds() {
+    request = widget.request;
+    requestId = request['requestId'];
+    pickerId = request['pickerId'];
+    donorId = request['donorId'];
   }
 
-  Future<bool> _verifyConnection() async {
-    try {
-      final result = await InternetAddress.lookup('google.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {}
-      return true;
-    } on SocketException catch (_) {
-      Flushbar(
-        message: "Falha de Conexão",
-        duration: Duration(seconds: 3),
-      )..show(context);
-      return false;
-    }
+  Widget inputForm(TextEditingController _controller, String text,
+      IconData icon, TextInputType teclado) {
+    final FocusNode _nameFocus = FocusNode();
+    String _texto = text;
+    IconData _icone = icon;
+
+    return Padding(
+      padding: EdgeInsets.fromLTRB(20, 15, 20, 5),
+      child: CustomField(
+        enable: true,
+        prefixIcon: _icone,
+        iconColor: Colors.white,
+        labelText: _texto,
+        onFieldSubmitted: (term) {
+          FocusScope.of(context).requestFocus(_nameFocus);
+        },
+        validator: Validator.validateForm,
+        textCap: TextCapitalization.words,
+        inputType: teclado,
+        action: TextInputAction.next,
+        controller: _controller,
+        textColor: Colors.white,
+        labelColor: Colors.white,
+      ),
+    );
   }
 
-  Future uploadFile(File file) async {
-    String fileName = userId;
+  Widget botao(String texto, Function funcaoSend) {
+    String _texto2 = texto;
+
+    return Padding(
+      padding: EdgeInsets.fromLTRB(20, 15, 20, 5),
+      child: Container(
+        width: MediaQuery.of(context).size.width * 1,
+        child: RaisedButton(
+          child: Text(
+            _texto2,
+            style: TextStyle(fontSize: 18.0, color: Colors.black),
+          ),
+          padding: EdgeInsets.all(16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          color: Colors.white,
+          onPressed: funcaoSend,
+        ),
+      ),
+    );
+  }
+
+  void finishForm() async {
+    Firestore.instance.collection('donors').document(donorId).updateData(
+      {
+        'APAGARRRRRR': _unidadeBasicaSaudeController.text,
+        'quest01': _quest01,
+        'quest02': _quest02,
+        'quest03': _quest03,
+      },
+    );
+
     setState(() {
-      isLoading = true;
+      Navigator.pop(context);
     });
-    if (await _verifyConnection()) {
-      try {
-        StorageReference reference =
-            FirebaseStorage.instance.ref().child(fileName);
-        StorageUploadTask uploadTask = reference.putFile(file);
-        StorageTaskSnapshot storageTaskSnapshot;
-        uploadTask.onComplete.then((value) {
-          if (value.error == null) {
-            storageTaskSnapshot = value;
-            storageTaskSnapshot.ref.getDownloadURL().then((downloadUrl) {
-              photoUrl = downloadUrl;
-              print("Download Url: " + photoUrl);
-              print("userId before download: " + userId);
-              Firestore.instance
-                  .collection('pickers')
-                  .document(userId)
-                  .updateData({'photoUrl': photoUrl}).then((data) async {
-                Flushbar(
-                  message: "Foto Atualizada com sucesso",
-                  duration: Duration(seconds: 3),
-                )..show(context);
-                setState(() {
-                  isLoading = false;
-                });
-              }).catchError((err) {
-                Flushbar(
-                  title: "Erro na gravacao do banco.",
-                  message: err.toString(),
-                  duration: Duration(seconds: 3),
-                )..show(context);
-                setState(() {
-                  isLoading = false;
-                });
-              });
-            }, onError: (err) {
-              Flushbar(
-                message: "Erro no link de Download do Firebase Storage.",
-                duration: Duration(seconds: 3),
-              )..show(context);
-              setState(() {
-                isLoading = false;
-              });
-            });
-          } else {
-            Flushbar(
-              title: "Erro ao gravar o imagem na nuvem",
-              message: "O arquivo pode não ser uma Imagem.",
-              duration: Duration(seconds: 3),
-            )..show(context);
-            setState(() {
-              isLoading = false;
-            });
-          }
-        });
-      } catch (e) {
-        Flushbar(
-          title: "Problema na Conexao",
-          message: "Sua foto pode não ter sido atualizada.",
-          duration: Duration(seconds: 3),
-        )..show(context);
-        setState(() {
-          isLoading = false;
-        });
-      }
-    } else {
-      setState(() {
-        isLoading = false;
-      });
-    }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (user != null)
-      return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            "Formulário",
-          ),
-          centerTitle: true,
+    return Scaffold(
+      backgroundColor: Colors.red[400].withOpacity(0.7),
+      appBar: AppBar(
+        title: Text(
+          "Formulário",
         ),
-        body: SingleChildScrollView(
-          child: Stack(
-            children: <Widget>[
-              StreamBuilder(
-                stream: Firestore.instance
-                    .collection('pickers')
-                    .where('userId', isEqualTo: userId)
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    User user = User.fromDocument(snapshot.data.documents[0]);
-                    photoUrl = user.photoUrl;
-                    return Column(
-                      children: <Widget>[
-                        SizedBox(height: 8.0),
-                        Container(
-                          child: Column(
-                            children: <Widget>[
-                              Text("a"),
-                              Text("a"),
-                              Text("a"),
-                            ],
-                          ),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        child: Stack(
+          children: <Widget>[
+            StreamBuilder(
+              stream: Firestore.instance
+                  .collection('pickers')
+                  .where('userId', isEqualTo: pickerId)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  User user = User.fromDocument(snapshot.data.documents[0]);
+                  return Column(
+                    children: <Widget>[
+                      SizedBox(height: 8.0),
+                      Container(
+                        child: Column(
+                          children: <Widget>[
+                            LabeledCheckbox(
+                              label: 'Mama olhando?',
+                              padding: EdgeInsets.fromLTRB(20, 15, 20, 5),
+                              value: _quest01,
+                              onChanged: (bool newValue) {
+                                setState(() {
+                                  _quest01 = newValue;
+                                });
+                              },
+                            ),
+                            LabeledCheckbox(
+                              label: 'Cuzin largo?',
+                              padding: EdgeInsets.fromLTRB(20, 15, 20, 5),
+                              value: _quest02,
+                              onChanged: (bool newValue) {
+                                setState(() {
+                                  _quest02 = newValue;
+                                });
+                              },
+                            ),
+                            LabeledCheckbox(
+                              label: 'Perereca fedendo?',
+                              padding: EdgeInsets.fromLTRB(20, 15, 20, 5),
+                              value: _quest03,
+                              onChanged: (bool newValue) {
+                                setState(() {
+                                  _quest03 = newValue;
+                                });
+                              },
+                            ),
+                            inputForm(
+                                _unidadeBasicaSaudeController,
+                                "Unidade Básica de Saúde",
+                                Icons.local_hospital,
+                                TextInputType.text),
+                            botao("Salvar", finishForm),
+                          ],
                         ),
-                        Divider(
-                          color: Colors.grey,
-                          endIndent: 8.0,
-                          indent: 8.0,
-                        ),
-                        Container(
-                          padding: EdgeInsets.fromLTRB(48.0, 8.0, 48.0, 16.0),
-                          child: Text(
-                            "Para a alterar seus dados entre em contato com a ${user.institutionName}",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w200, fontSize: 12),
-                            //textAlign: TextAlign.start,
-                          ),
-                        ),
-                      ],
-                    );
-                  } else {
-                    return Center(
-                      child: Container(
-                        child: CircularProgressIndicator(
-                          strokeWidth: 5.0,
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                              Theme.of(context).primaryColor),
-                        ),
-                        height: 30,
-                        width: 30,
                       ),
-                    );
-                  }
-                },
-              ),
-            ],
-          ),
+                      Divider(
+                        color: Colors.grey,
+                        endIndent: 8.0,
+                        indent: 8.0,
+                      ),
+                      Container(
+                        padding: EdgeInsets.fromLTRB(48.0, 8.0, 48.0, 16.0),
+                        child: Text(
+                          "Para a alterar seus dados entre em contato com a ${user.institutionName}",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w200, fontSize: 12),
+                          //textAlign: TextAlign.start,
+                        ),
+                      ),
+                    ],
+                  );
+                } else {
+                  return Center(
+                    child: Container(
+                      child: CircularProgressIndicator(
+                        strokeWidth: 5.0,
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                            Theme.of(context).primaryColor),
+                      ),
+                      height: 30,
+                      width: 30,
+                    ),
+                  );
+                }
+              },
+            ),
+          ],
         ),
-      );
-    else
-      return Center(
-        child: Container(
-          child: CircularProgressIndicator(
-            strokeWidth: 5.0,
-            valueColor:
-                AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
-          ),
-          width: 120.0,
-          height: 120.0,
-        ),
-      );
+      ),
+    );
   }
 
   Widget dataUnit(String text1, String text2) {

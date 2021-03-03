@@ -1,8 +1,9 @@
 class Validator {
   static String validateEmail(String value) {
-    Pattern pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    Pattern pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regex = RegExp(pattern);
-    if(!regex.hasMatch(value))
+    if (!regex.hasMatch(value))
       return 'Digite um email válido!';
     else
       return null;
@@ -18,15 +19,18 @@ class Validator {
   }
 
   static String validateName(String value) {
-    Pattern pattern =
-        r"^([a-zA-ZéúíóáÉÚÍÓÁçÇõãÕÃêûîôâÊÛÎÔÂ\-\ \s]{2,}\s"
+    Pattern pattern = r"^([a-zA-ZéúíóáÉÚÍÓÁçÇõãÕÃêûîôâÊÛÎÔÂ\-\ \s]{2,}\s"
         r"[a-zA-ZéúíóáÉÚÍÓÁçÇõãÕÃêûîôâÊÛÎÔÂ\-\ \s]{1,}'?-?"
         r"[a-zA-ZéúíóáÉÚÍÓÁçÇõãÕÃêûîôâÊÛÎÔÂ\-\ \s]{2,}\s?"
         r"([a-zA-ZéúíóáÉÚÍÓÁçÇõãÕÃêûîôâÊÛÎÔÂ\-\ \s]{1,})?)";
     RegExp regex = RegExp(pattern);
-    if(!regex.hasMatch(value))
+    if (!regex.hasMatch(value))
       return 'Digite seu nome completo!';
     else
       return null;
+  }
+
+  static String validateForm(String value) {
+    return null;
   }
 }

@@ -12,7 +12,9 @@ class CustomField extends StatelessWidget {
   final bool obscureText;
   final Color iconColor;
   final Color textColor;
+  final IconData prefixIcon;
   final FocusNode node;
+  final bool enable;
   final IconData icon;
 
   const CustomField({
@@ -27,6 +29,8 @@ class CustomField extends StatelessWidget {
     this.iconColor,
     this.textColor,
     this.textCap,
+    this.prefixIcon,
+    this.enable,
     this.icon,
     this.node,
   });
