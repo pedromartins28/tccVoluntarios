@@ -25,7 +25,6 @@ class _FormPageState extends State<FormPage> {
   bool _quest01 = false;
   bool _quest02 = false;
   bool _quest03 = false;
-  bool _quest04 = false;
   SharedPreferences prefs;
 
   final TextEditingController _unidadeBasicaSaudeController =
@@ -42,6 +41,13 @@ class _FormPageState extends State<FormPage> {
     requestId = request['requestId'];
     pickerId = request['pickerId'];
     donorId = request['donorId'];
+
+    _db.collection('donors').document(donorId).get().then((snapshot) {
+      _quest01 = snapshot.data['quest01'];
+      _quest02 = snapshot.data['quest02'];
+      _quest03 = snapshot.data['quest03'];
+      _unidadeBasicaSaudeController.text = snapshot.data['APAGARRRRRR'];
+    });
   }
 
   Widget inputForm(TextEditingController _controller, String text,
