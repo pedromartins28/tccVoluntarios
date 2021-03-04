@@ -376,6 +376,21 @@ class _StateRequestList extends State<RequestList>
                           fontWeight: FontWeight.w500,
                           fontSize: 15,
                         ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 4),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    Icon(FontAwesomeIcons.paperclip,
+                        color: Colors.black54, size: 18),
+                    SizedBox(width: 6),
+                    Flexible(
+                      child: Text(
+                        "${document['trashAmount']}",
+                        style: TextStyle(color: Colors.black, fontSize: 15),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -383,14 +398,18 @@ class _StateRequestList extends State<RequestList>
                 ),
                 SizedBox(height: 4),
                 Row(
+                  mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
-                    Icon(Icons.fitness_center, size: 18),
+                    Icon(
+                      FontAwesomeIcons.newspaper,
+                      color: Colors.black54,
+                      size: 18,
+                    ),
                     SizedBox(width: 6),
                     Flexible(
                       child: Text(
-                        "${document['trashAmount']} DE ${document['trashType']}",
-                        style: TextStyle(color: Colors.black),
-                        overflow: TextOverflow.ellipsis,
+                        "${document['trashType']}",
+                        style: TextStyle(color: Colors.black, fontSize: 15),
                       ),
                     ),
                   ],
@@ -498,25 +517,43 @@ class _StateRequestList extends State<RequestList>
                 ],
               ),
               SizedBox(height: 12),
-              Text("RESÍDUO:"),
-              SizedBox(height: 4),
+              Text("ATIVIDADE:"),
+              SizedBox(height: 6),
               Row(
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
-                  Icon(Icons.delete_outline, color: Colors.black54, size: 20),
+                  Icon(FontAwesomeIcons.paperclip,
+                      color: Colors.black54, size: 20),
                   SizedBox(width: 6),
                   Flexible(
                     child: Text(
-                      "${document['trashAmount']} DE ${document['trashType']}",
+                      "${document['trashAmount']}",
                       style: TextStyle(color: Colors.black, fontSize: 18),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 8),
+              SizedBox(height: 12),
+              Text("DESCRIÇÃO:"),
+              SizedBox(height: 6),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Icon(FontAwesomeIcons.newspaper,
+                      color: Colors.black54, size: 20),
+                  SizedBox(width: 6),
+                  Flexible(
+                    child: Text(
+                      "${document['trashType']}",
+                      style: TextStyle(color: Colors.black, fontSize: 18),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 12),
               Text("ENDEREÇO:"),
-              SizedBox(height: 4),
+              SizedBox(height: 6),
               Row(
                 children: <Widget>[
                   Icon(Icons.my_location, color: Colors.black54, size: 20),
@@ -640,8 +677,7 @@ class _StateRequestList extends State<RequestList>
                         child: Container(
                           padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
                           decoration: BoxDecoration(
-                            color:
-                                Theme.of(context).primaryColor.withAlpha(200),
+                            color: Colors.green[300],
                             borderRadius: BorderRadius.only(
                               bottomRight: Radius.circular(4.0),
                             ),

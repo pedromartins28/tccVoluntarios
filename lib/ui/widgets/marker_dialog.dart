@@ -42,163 +42,190 @@ class _MarkerDialogState extends State<MarkerDialog> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(10.0),
-            margin: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
-            decoration: BoxDecoration(
-              border: Border.all(width: 0.4, color: Colors.grey),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(4.0),
-                topRight: Radius.circular(4.0),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.all(10.0),
+              margin: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
+              decoration: BoxDecoration(
+                border: Border.all(width: 0.4, color: Colors.grey),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(4.0),
+                  topRight: Radius.circular(4.0),
+                ),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Icon(FontAwesomeIcons.mapMarkerAlt,
+                      color: Colors.grey, size: 20),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      document['address'],
+                      style: TextStyle(fontSize: 17),
+                      overflow: TextOverflow.clip,
+                    ),
+                  ),
+                ],
               ),
             ),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                Icon(FontAwesomeIcons.mapMarkerAlt,
-                    color: Colors.grey, size: 20),
-                SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    document['address'],
-                    style: TextStyle(fontSize: 17),
-                    overflow: TextOverflow.clip,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(10.0),
-            margin: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
-            decoration: BoxDecoration(
-              border: Border.all(width: 0.4, color: Colors.grey),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                Icon(FontAwesomeIcons.recycle, color: Colors.grey, size: 20),
-                SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    "${document['trashAmount']} DE ${document['trashType']}",
-                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
-                    overflow: TextOverflow.clip,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
+            Container(
               padding: EdgeInsets.all(10.0),
               margin: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
               decoration: BoxDecoration(
                 border: Border.all(width: 0.4, color: Colors.grey),
               ),
-              child: _buildDayFieldRow(document, Colors.grey)),
-          Container(
-            padding: EdgeInsets.all(10.0),
-            margin: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
-            decoration: BoxDecoration(
-              border: Border.all(width: 0.4, color: Colors.grey),
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(4.0),
-                bottomRight: Radius.circular(4.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Icon(FontAwesomeIcons.paperclip,
+                      color: Colors.grey, size: 20),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      "${document['trashAmount']}",
+                      style:
+                          TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+                      overflow: TextOverflow.clip,
+                    ),
+                  ),
+                ],
               ),
             ),
-            child: Row(
+            Container(
+              padding: EdgeInsets.all(10.0),
+              margin: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
+              decoration: BoxDecoration(
+                border: Border.all(width: 0.4, color: Colors.grey),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Icon(FontAwesomeIcons.newspaper,
+                      color: Colors.grey, size: 20),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      "${document['trashType']}",
+                      style:
+                          TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
+                      overflow: TextOverflow.clip,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+                padding: EdgeInsets.all(10.0),
+                margin: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
+                decoration: BoxDecoration(
+                  border: Border.all(width: 0.4, color: Colors.grey),
+                ),
+                child: _buildDayFieldRow(document, Colors.grey)),
+            Container(
+              padding: EdgeInsets.all(10.0),
+              margin: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+              decoration: BoxDecoration(
+                border: Border.all(width: 0.4, color: Colors.grey),
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(4.0),
+                  bottomRight: Radius.circular(4.0),
+                ),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Icon(FontAwesomeIcons.clock, color: Colors.grey, size: 20),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      document['periodStart']
+                              .toDate()
+                              .toString()
+                              .substring(11, 16) +
+                          " até " +
+                          document['periodEnd']
+                              .toDate()
+                              .toString()
+                              .substring(11, 16),
+                      style: TextStyle(fontSize: 18),
+                      overflow: TextOverflow.clip,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Row(
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                Icon(FontAwesomeIcons.clock, color: Colors.grey, size: 20),
-                SizedBox(width: 8),
                 Expanded(
-                  child: Text(
-                    document['periodStart']
-                            .toDate()
-                            .toString()
-                            .substring(11, 16) +
-                        " até " +
-                        document['periodEnd']
-                            .toDate()
-                            .toString()
-                            .substring(11, 16),
-                    style: TextStyle(fontSize: 18),
-                    overflow: TextOverflow.clip,
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Container(
+                      padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                      decoration: BoxDecoration(
+                        color: Colors.redAccent.withAlpha(200),
+                        borderRadius:
+                            BorderRadius.only(bottomLeft: Radius.circular(4.0)),
+                      ),
+                      child: Icon(FontAwesomeIcons.timesCircle,
+                          color: Colors.white),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: InkWell(
+                    onTap: () async {
+                      if (await _verifyConnection(context)) {
+                        Navigator.of(context).pop();
+
+                        document.reference.updateData({
+                          'state': 2,
+                          'pickerId': userId,
+                        }).then((onValue) {
+                          _db
+                              .collection('donors')
+                              .document(document['donorId'])
+                              .updateData({'requestNotification': true});
+
+                          document.reference
+                              .collection('messages')
+                              .getDocuments()
+                              .then((snapshot) {
+                            for (DocumentSnapshot ds in snapshot.documents) {
+                              ds.reference.delete();
+                            }
+                          });
+                        }).catchError((error) {
+                          Flushbar(
+                            message: "Não foi possível aceitar a coleta",
+                            duration: Duration(seconds: 3),
+                            isDismissible: false,
+                          )..show(context);
+                        });
+                      }
+                    },
+                    child: Container(
+                      padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                      decoration: BoxDecoration(
+                        color: Colors.green[300],
+                        borderRadius: BorderRadius.only(
+                            bottomRight: Radius.circular(4.0)),
+                      ),
+                      child: Icon(FontAwesomeIcons.checkCircle,
+                          color: Colors.white),
+                    ),
                   ),
                 ),
               ],
             ),
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              Expanded(
-                child: InkWell(
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Container(
-                    padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                    decoration: BoxDecoration(
-                      color: Colors.redAccent.withAlpha(200),
-                      borderRadius:
-                          BorderRadius.only(bottomLeft: Radius.circular(4.0)),
-                    ),
-                    child:
-                        Icon(FontAwesomeIcons.timesCircle, color: Colors.white),
-                  ),
-                ),
-              ),
-              Expanded(
-                child: InkWell(
-                  onTap: () async {
-                    if (await _verifyConnection(context)) {
-                      Navigator.of(context).pop();
-
-                      document.reference.updateData({
-                        'state': 2,
-                        'pickerId': userId,
-                      }).then((onValue) {
-                        _db
-                            .collection('donors')
-                            .document(document['donorId'])
-                            .updateData({'requestNotification': true});
-
-                        document.reference
-                            .collection('messages')
-                            .getDocuments()
-                            .then((snapshot) {
-                          for (DocumentSnapshot ds in snapshot.documents) {
-                            ds.reference.delete();
-                          }
-                        });
-                      }).catchError((error) {
-                        Flushbar(
-                          message: "Não foi possível aceitar a coleta",
-                          duration: Duration(seconds: 3),
-                          isDismissible: false,
-                        )..show(context);
-                      });
-                    }
-                  },
-                  child: Container(
-                    padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor.withAlpha(200),
-                      borderRadius:
-                          BorderRadius.only(bottomRight: Radius.circular(4.0)),
-                    ),
-                    child:
-                        Icon(FontAwesomeIcons.checkCircle, color: Colors.white),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -472,8 +472,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           _isActive = snapshot.data.documents[0]['isActive'];
                           return Switch(
                             value: _isActive,
-                            activeTrackColor: Color(0xffC5E1A5),
-                            activeColor: Theme.of(context).primaryColor,
+                            activeTrackColor:
+                                Colors.green[300].withOpacity(0.5),
+                            activeColor: Colors.green[600],
                             onChanged: (value) {
                               snapshot.data.documents[0].reference.updateData(
                                 {'isActive': _isActive ? false : true},

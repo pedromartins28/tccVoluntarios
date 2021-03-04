@@ -118,7 +118,7 @@ class _FormPageState extends State<FormPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.red[400].withOpacity(0.7),
+      backgroundColor: Colors.red[300].withOpacity(0.9),
       appBar: AppBar(
         title: Text(
           "Formulário",
