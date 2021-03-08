@@ -94,7 +94,7 @@ class _MapPageState extends State<MapPage> {
     return Stack(
       children: <Widget>[
         StreamBuilder(
-          stream: Firestore.instance.collection('requests').snapshots(),
+          stream: Firestore.instance.collection('requestsVolunt').snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return Center(

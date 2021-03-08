@@ -243,7 +243,7 @@ class NotificationHandler {
         showNotification(notification);
       else {
         _db
-            .collection('requests')
+            .collection('requestsVolunt')
             .document(notification['data']['requestId'])
             .updateData({
           'pickerChatNotification': 0,

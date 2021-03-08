@@ -54,8 +54,10 @@ class _StateRequestList extends State<RequestList>
     super.build(context);
     if (listType == 1) {
       return StreamBuilder(
-        stream:
-            _db.collection('requests').where("state", isEqualTo: 1).snapshots(),
+        stream: _db
+            .collection('requestsVolunt')
+            .where("state", isEqualTo: 1)
+            .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Center(
@@ -92,7 +94,7 @@ class _StateRequestList extends State<RequestList>
     } else if (listType == 2) {
       return StreamBuilder(
         stream: _db
-            .collection('requests')
+            .collection('requestsVolunt')
             .where("state", isEqualTo: 2)
             .where("pickerId", isEqualTo: userId)
             .snapshots(),
@@ -124,7 +126,7 @@ class _StateRequestList extends State<RequestList>
     } else {
       return StreamBuilder(
         stream: _db
-            .collection('requests')
+            .collection('requestsVolunt')
             .where("state", isEqualTo: 3)
             .where('pickerId', isEqualTo: userId)
             .orderBy('endTime')
@@ -250,17 +252,32 @@ class _StateRequestList extends State<RequestList>
               Row(
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
-                  Icon(Icons.delete_outline, size: 18),
+                  Icon(FontAwesomeIcons.paperclip,
+                      color: Colors.black54, size: 18),
                   SizedBox(width: 6),
                   Flexible(
                     child: Text(
-                      "${document['trashAmount']} DE ${document['trashType']}",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 15,
-                      ),
+                      "${document['trashAmount']}",
+                      style: TextStyle(color: Colors.black, fontSize: 15),
                       overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 4),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Icon(
+                    FontAwesomeIcons.newspaper,
+                    color: Colors.black54,
+                    size: 18,
+                  ),
+                  SizedBox(width: 6),
+                  Flexible(
+                    child: Text(
+                      "${document['trashType']}",
+                      style: TextStyle(color: Colors.black, fontSize: 15),
                     ),
                   ),
                 ],

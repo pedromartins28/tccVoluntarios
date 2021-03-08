@@ -92,7 +92,7 @@ class _ChatPageState extends State<ChatPage> {
     if (await _verifyConnection(context)) {
       if (messageController.text.length > 0) {
         _db
-            .collection('requests')
+            .collection('requestsVolunt')
             .document(requestId)
             .collection('messages')
             .document()
@@ -149,7 +149,7 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     _db
-        .collection('requests')
+        .collection('requestsVolunt')
         .document(requestId)
         .updateData({'pickerChatNotification': 0});
 
@@ -185,7 +185,7 @@ class _ChatPageState extends State<ChatPage> {
         ),
         body: StreamBuilder(
             stream: _db
-                .collection('requests')
+                .collection('requestsVolunt')
                 .where('donorId', isEqualTo: donorId)
                 .where('state', isEqualTo: 2)
                 .snapshots(),
@@ -214,7 +214,7 @@ class _ChatPageState extends State<ChatPage> {
                           Expanded(
                             child: StreamBuilder(
                                 stream: Firestore.instance
-                                    .collection('requests')
+                                    .collection('requestsVolunt')
                                     .document(requestId)
                                     .collection('messages')
                                     .orderBy('date', descending: true)

@@ -54,8 +54,10 @@ class _StateRequestList extends State<RequestList>
     super.build(context);
     if (listType == 1) {
       return StreamBuilder(
-        stream:
-            _db.collection('requests').where("state", isEqualTo: 1).snapshots(),
+        stream: _db
+            .collection('requestsVolunt')
+            .where("state", isEqualTo: 1)
+            .snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Center(
@@ -92,7 +94,7 @@ class _StateRequestList extends State<RequestList>
     } else if (listType == 2) {
       return StreamBuilder(
         stream: _db
-            .collection('requests')
+            .collection('requestsVolunt')
             .where("state", isEqualTo: 2)
             .where("pickerId", isEqualTo: userId)
             .snapshots(),
@@ -124,7 +126,7 @@ class _StateRequestList extends State<RequestList>
     } else {
       return StreamBuilder(
         stream: _db
-            .collection('requests')
+            .collection('requestsVolunt')
             .where("state", isEqualTo: 3)
             .where('pickerId', isEqualTo: userId)
             .orderBy('endTime')
