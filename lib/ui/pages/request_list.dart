@@ -259,7 +259,6 @@ class _StateRequestList extends State<RequestList>
                     child: Text(
                       "${document['trashAmount']}",
                       style: TextStyle(color: Colors.black, fontSize: 15),
-                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ],
@@ -408,7 +407,6 @@ class _StateRequestList extends State<RequestList>
                       child: Text(
                         "${document['trashAmount']}",
                         style: TextStyle(color: Colors.black, fontSize: 15),
-                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],
