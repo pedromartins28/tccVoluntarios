@@ -14,28 +14,28 @@ import 'package:flutter/material.dart';
 
 class RequestList extends StatefulWidget {
   final PanelController panelController;
-  final String userId, userName;
+  final String userId, userName, occupation;
   final listType;
   final Function homeVisibility;
 
   RequestList(this.panelController, this.listType,
-      {this.userId, this.userName, this.homeVisibility});
+      {this.userId, this.userName, this.homeVisibility, this.occupation});
 
   @override
-  _StateRequestList createState() =>
-      _StateRequestList(panelController, listType, userId, userName);
+  _StateRequestList createState() => _StateRequestList(
+      panelController, listType, userId, userName, occupation);
 }
 
 class _StateRequestList extends State<RequestList>
     with AutomaticKeepAliveClientMixin<RequestList> {
   final PanelController panelController;
   final _db = Firestore.instance;
-  final String userId, userName;
+  final String userId, userName, occupation;
   String quantity;
   final listType;
 
-  _StateRequestList(
-      this.panelController, this.listType, this.userId, this.userName);
+  _StateRequestList(this.panelController, this.listType, this.userId,
+      this.userName, this.occupation);
 
   @override
   void initState() {
@@ -52,12 +52,11 @@ class _StateRequestList extends State<RequestList>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    print("\n\n penis \n" + occupation + "\n\n penis");
     if (listType == 1) {
       return StreamBuilder(
-        stream: _db
-            .collection('requestsVolunt')
-            .where("state", isEqualTo: 1)
-            .snapshots(),
+        stream:
+            _db.collection(occupation).where("state", isEqualTo: 1).snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Center(
@@ -94,7 +93,7 @@ class _StateRequestList extends State<RequestList>
     } else if (listType == 2) {
       return StreamBuilder(
         stream: _db
-            .collection('requestsVolunt')
+            .collection(occupation)
             .where("state", isEqualTo: 2)
             .where("pickerId", isEqualTo: userId)
             .snapshots(),
@@ -126,7 +125,7 @@ class _StateRequestList extends State<RequestList>
     } else {
       return StreamBuilder(
         stream: _db
-            .collection('requestsVolunt')
+            .collection(occupation)
             .where("state", isEqualTo: 3)
             .where('pickerId', isEqualTo: userId)
             .orderBy('endTime')
