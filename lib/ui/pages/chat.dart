@@ -152,12 +152,12 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
+    appState = StateWidget.of(context).state;
+    occupation = appState.user.occupation;
     _db
         .collection(occupation)
         .document(requestId)
         .updateData({'pickerChatNotification': 0});
-    appState = StateWidget.of(context).state;
-    occupation = appState.user.occupation;
 
     return Scaffold(
         resizeToAvoidBottomInset: true,
