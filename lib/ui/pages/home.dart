@@ -1,15 +1,16 @@
 import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:voluntario/ui/pages/tabs/request_list.dart';
+import 'package:voluntario/ui/pages/request_list.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:voluntario/util/notification_handler.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:voluntario/ui/widgets/loading.dart';
 import 'package:voluntario/util/state_widget.dart';
-import 'package:voluntario/ui/pages/tabs/map.dart';
+import 'package:voluntario/ui/pages/main/map.dart';
 import 'package:voluntario/ui/pages/sign_in.dart';
 import 'package:voluntario/models/state.dart';
 import 'package:voluntario/models/user.dart';
@@ -35,6 +36,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   SharedPreferences prefs;
   StateModel appState;
   User user;
+  String occupation;
 
   @override
   void initState() {
@@ -50,11 +52,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     prefs = await SharedPreferences.getInstance();
     user = userFromJson(prefs.getString('user'));
     notificationHandler = NotificationHandler(
-        tabController: _tabController,
-        userId: user.userId,
-        context: context,
-        panel: _panel,
-        homePageScaffoldKey: _scaffoldKey);
+      tabController: _tabController,
+      userId: user.userId,
+      context: context,
+      panel: _panel,
+      homePageScaffoldKey: _scaffoldKey,
+    );
     await notificationHandler.setupNotifications();
     print("Configuração feita!");
   }
@@ -79,6 +82,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       Flushbar(
         message: "Falha de Conexão",
         duration: Duration(seconds: 3),
+        isDismissible: false,
       )..show(context);
       return false;
     }
@@ -87,6 +91,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     appState = StateWidget.of(context).state;
+
     if (!appState.isLoading &&
         (appState.authUser == null || appState.user == null)) {
       if (notificationHandler != null) {
@@ -103,7 +108,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         email = appState.authUser.email;
         name = appState.user.name;
         userId = appState.user.userId;
-
+        occupation = appState.user.occupation;
         return Scaffold(
           key: _scaffoldKey,
           drawer: Drawer(
@@ -292,16 +297,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       margin: const EdgeInsets.fromLTRB(92.0, 8.0, 92.0, 36.0),
       child: RaisedButton.icon(
         label: Text(
-          "VISUALIZAR SOLICITAÇÕES",
+          "SOLICITAÇÕES",
           style: TextStyle(
-            fontSize: 24.0,
+            fontSize: 18.0,
           ),
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(6.0),
         ),
         color: Theme.of(context).primaryColor,
-        icon: Icon(FontAwesomeIcons.recycle),
+        icon: Icon(FontAwesomeIcons.heart),
         onPressed: () => _panel.open(),
         textColor: Colors.white,
       ),
@@ -376,6 +381,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           1,
                           userId: userId,
                           userName: name,
+                          occupation: occupation,
                         ),
                       ),
                     ],
@@ -406,6 +412,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         userId: userId,
                         userName: name,
                         homeVisibility: _changeLoadingVisible,
+                        occupation: occupation,
                       )),
                     ],
                   ),
@@ -470,8 +477,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           _isActive = snapshot.data.documents[0]['isActive'];
                           return Switch(
                             value: _isActive,
-                            activeTrackColor: Color(0xffC5E1A5),
-                            activeColor: Theme.of(context).primaryColor,
+                            activeTrackColor:
+                                Colors.green[300].withOpacity(0.5),
+                            activeColor: Colors.green[600],
                             onChanged: (value) {
                               snapshot.data.documents[0].reference.updateData(
                                 {'isActive': _isActive ? false : true},

@@ -24,6 +24,7 @@ class User {
   String cep;
   String cpf;
   String rg;
+  String occupation;
 
   User({
     this.alternativePhone,
@@ -38,6 +39,7 @@ class User {
     this.cep,
     this.cpf,
     this.rg,
+    this.occupation,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
@@ -53,6 +55,7 @@ class User {
         cep: json["cep"],
         cpf: json["cpf"],
         rg: json["rg"],
+        occupation: json['occupation'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -68,6 +71,7 @@ class User {
         "cep": cep,
         "cpf": cpf,
         "rg": rg,
+        "occupation": occupation,
       };
 
   factory User.fromDocument(DocumentSnapshot doc) {

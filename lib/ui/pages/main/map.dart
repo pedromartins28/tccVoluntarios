@@ -6,6 +6,8 @@ import 'package:voluntario/util/map_state.dart';
 import 'package:provider/provider.dart';
 import 'package:location/location.dart';
 import 'package:flutter/services.dart';
+import 'package:voluntario/models/state.dart';
+import 'package:voluntario/util/state_widget.dart';
 import 'package:flutter/material.dart';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
@@ -25,6 +27,8 @@ class _MapPageState extends State<MapPage> {
   final PermissionHandler _permissionHandler = PermissionHandler();
   bool hasLocPermission = false;
   BitmapDescriptor redIcon, greenIcon;
+  String occupation;
+  StateModel appState;
   final Map userData;
   var pos;
 
@@ -91,10 +95,12 @@ class _MapPageState extends State<MapPage> {
 
   Widget build(BuildContext context) {
     final mapState = Provider.of<MapState>(context);
+    appState = StateWidget.of(context).state;
+    occupation = appState.user.occupation;
     return Stack(
       children: <Widget>[
         StreamBuilder(
-          stream: Firestore.instance.collection('requestsVolunt').snapshots(),
+          stream: Firestore.instance.collection(occupation).snapshots(),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return Center(

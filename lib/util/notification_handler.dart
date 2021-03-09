@@ -19,6 +19,7 @@ class NotificationHandler {
       FlutterLocalNotificationsPlugin();
   String userId;
   StateModel appState;
+  String occupation;
   PanelController panel;
   TabController tabController;
   GlobalKey<ScaffoldState> homePageScaffoldKey;
@@ -28,7 +29,8 @@ class NotificationHandler {
       this.userId,
       this.panel,
       this.tabController,
-      this.homePageScaffoldKey});
+      this.homePageScaffoldKey,
+      String occupation});
 
   setupNotifications() {
     appState = StateWidget.of(context).state;
@@ -230,6 +232,7 @@ class NotificationHandler {
   }
 
   _localNotificationHandler(Map<String, dynamic> notification) {
+    occupation = appState.user.occupation;
     String notificationType = notification['data']['type'];
     if (notificationType == 'message') {
       bool isFromTheSameChat = false;
@@ -243,7 +246,7 @@ class NotificationHandler {
         showNotification(notification);
       else {
         _db
-            .collection('requestsVolunt')
+            .collection(occupation)
             .document(notification['data']['requestId'])
             .updateData({
           'pickerChatNotification': 0,

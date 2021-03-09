@@ -52,7 +52,6 @@ class _StateRequestList extends State<RequestList>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    print("\n\n penis \n" + occupation + "\n\n penis");
     if (listType == 1) {
       return StreamBuilder(
         stream:

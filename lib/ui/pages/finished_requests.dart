@@ -1,5 +1,5 @@
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:voluntario/ui/pages/tabs/request_list.dart';
+import 'package:voluntario/ui/pages/request_list.dart';
 import 'package:voluntario/util/state_widget.dart';
 import 'package:voluntario/models/state.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +11,7 @@ class RequestHistoryPage extends StatefulWidget {
 class _RequestHistoryPageState extends State<RequestHistoryPage> {
   PanelController panel;
   StateModel appState;
+  String occupation;
 
   @override
   void initState() {
@@ -20,6 +21,7 @@ class _RequestHistoryPageState extends State<RequestHistoryPage> {
   @override
   Widget build(BuildContext context) {
     appState = StateWidget.of(context).state;
+    occupation = appState.user.occupation;
     final userId = appState?.user?.userId ?? '';
     return Scaffold(
       appBar: AppBar(
@@ -28,7 +30,12 @@ class _RequestHistoryPageState extends State<RequestHistoryPage> {
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 12),
-        child: RequestList(panel, 3, userId: userId),
+        child: RequestList(
+          panel,
+          3,
+          userId: userId,
+          occupation: occupation,
+        ),
       ),
     );
   }

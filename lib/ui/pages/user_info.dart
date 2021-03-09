@@ -332,6 +332,7 @@ class _UserInfoPageState extends State<UserInfoPage>
                         dataUnit("CEP", user.cep),
                         dataUnit("Número da casa", user.addressNum),
                         dataUnit("Data de Nascimento", user.birthday),
+                        dataUnit("Ocupação", user.occupation),
                         Divider(
                           color: Colors.grey,
                           endIndent: 8.0,

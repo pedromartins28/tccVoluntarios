@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:voluntario/ui/widgets/dot_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:voluntario/models/state.dart';
+import 'package:voluntario/util/state_widget.dart';
 import 'dart:async';
 
 class ChatPage extends StatefulWidget {
@@ -21,7 +23,9 @@ class _ChatPageState extends State<ChatPage> {
   String requestId;
   String pickerId;
   String donorId;
+  String occupation;
   Map request;
+  StateModel appState;
 
   @override
   void initState() {
@@ -92,7 +96,7 @@ class _ChatPageState extends State<ChatPage> {
     if (await _verifyConnection(context)) {
       if (messageController.text.length > 0) {
         _db
-            .collection('requestsVolunt')
+            .collection(occupation)
             .document(requestId)
             .collection('messages')
             .document()
@@ -149,9 +153,11 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     _db
-        .collection('requestsVolunt')
+        .collection(occupation)
         .document(requestId)
         .updateData({'pickerChatNotification': 0});
+    appState = StateWidget.of(context).state;
+    occupation = appState.user.occupation;
 
     return Scaffold(
         resizeToAvoidBottomInset: true,
@@ -185,7 +191,7 @@ class _ChatPageState extends State<ChatPage> {
         ),
         body: StreamBuilder(
             stream: _db
-                .collection('requestsVolunt')
+                .collection(occupation)
                 .where('donorId', isEqualTo: donorId)
                 .where('state', isEqualTo: 2)
                 .snapshots(),
@@ -214,7 +220,7 @@ class _ChatPageState extends State<ChatPage> {
                           Expanded(
                             child: StreamBuilder(
                                 stream: Firestore.instance
-                                    .collection('requestsVolunt')
+                                    .collection(occupation)
                                     .document(requestId)
                                     .collection('messages')
                                     .orderBy('date', descending: true)

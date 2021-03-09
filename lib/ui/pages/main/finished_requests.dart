@@ -11,6 +11,7 @@ class RequestHistoryPage extends StatefulWidget {
 class _RequestHistoryPageState extends State<RequestHistoryPage> {
   PanelController panel;
   StateModel appState;
+  String occupation;
 
   @override
   void initState() {
@@ -20,6 +21,7 @@ class _RequestHistoryPageState extends State<RequestHistoryPage> {
   @override
   Widget build(BuildContext context) {
     appState = StateWidget.of(context).state;
+    occupation = appState.user.occupation;
     final userId = appState?.user?.userId ?? '';
     return Scaffold(
       appBar: AppBar(
@@ -28,7 +30,12 @@ class _RequestHistoryPageState extends State<RequestHistoryPage> {
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 12),
-        child: RequestList(panel, 3, userId: userId),
+        child: RequestList(
+          panel,
+          3,
+          userId: userId,
+          occupation: occupation,
+        ),
       ),
     );
   }

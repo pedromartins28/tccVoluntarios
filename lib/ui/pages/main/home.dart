@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   SharedPreferences prefs;
   StateModel appState;
   User user;
-  String _occupation;
+  String occupation;
 
   @override
   void initState() {
@@ -52,11 +52,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     prefs = await SharedPreferences.getInstance();
     user = userFromJson(prefs.getString('user'));
     notificationHandler = NotificationHandler(
-        tabController: _tabController,
-        userId: user.userId,
-        context: context,
-        panel: _panel,
-        homePageScaffoldKey: _scaffoldKey);
+      tabController: _tabController,
+      userId: user.userId,
+      context: context,
+      panel: _panel,
+      homePageScaffoldKey: _scaffoldKey,
+    );
     await notificationHandler.setupNotifications();
     print("Configuração feita!");
   }
@@ -90,23 +91,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     appState = StateWidget.of(context).state;
-    _occupation = "requestsVolunt";
-    // Firestore.instance.collection('pickers').document(userId).get().then((doc) {
-    //   setState(() {
-    //     _occupation = doc['rg'];
-    //   });
-    // });
-    // Firestore.instance
-    //     .collection('pickers')
-    //     .document(userId)
-    //     .snapshots()
-    //     .listen((snapshot) {
-    //   if (snapshot.data['occupation'] == 'requestsVolunt') {
-    //     _occupation = "requestsVolunt";
-    //   } else if (snapshot.data['occupation'] == 'requestsMedic') {
-    //     _occupation = "requestsMedic";
-    //   }
-    // });
 
     if (!appState.isLoading &&
         (appState.authUser == null || appState.user == null)) {
@@ -124,6 +108,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         email = appState.authUser.email;
         name = appState.user.name;
         userId = appState.user.userId;
+        occupation = appState.user.occupation;
         return Scaffold(
           key: _scaffoldKey,
           drawer: Drawer(
@@ -396,7 +381,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           1,
                           userId: userId,
                           userName: name,
-                          occupation: _occupation,
+                          occupation: occupation,
                         ),
                       ),
                     ],
@@ -427,7 +412,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         userId: userId,
                         userName: name,
                         homeVisibility: _changeLoadingVisible,
-                        occupation: _occupation,
+                        occupation: occupation,
                       )),
                     ],
                   ),
