@@ -5,6 +5,8 @@ import 'package:android_intent/android_intent.dart';
 import 'package:voluntario/ui/widgets/dot_loader.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flushbar/flushbar.dart';
+import 'package:voluntario/models/state.dart';
+import 'package:voluntario/util/state_widget.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
@@ -26,6 +28,8 @@ class _RequestBottomSheetState extends State<RequestBottomSheet> {
   String donorName;
   bool _visible = false;
   Widget icon;
+  String occupation;
+  StateModel appState;
 
   _RequestBottomSheetState(this.document, this._homeVisibility);
 
@@ -75,6 +79,8 @@ class _RequestBottomSheetState extends State<RequestBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
+    appState = StateWidget.of(context).state;
+    occupation = appState.user.occupation;
     int notifications = document['pickerChatNotification'];
     if (notifications != null && notifications != 0)
       icon = Icon(FontAwesomeIcons.commentDots, color: Colors.orangeAccent);
@@ -116,20 +122,22 @@ class _RequestBottomSheetState extends State<RequestBottomSheet> {
             width: double.infinity,
             color: Colors.grey,
           ),
-          ListTile(
-            leading: Container(
-              width: 16,
-              child: Icon(
-                Icons.format_align_justify,
-                color: Theme.of(context).primaryColor,
-              ),
-            ),
-            title: Text('FORMULÁRIO'),
-            onTap: () async {
-              Navigator.of(context).pop();
-              openForm(context);
-            },
-          ),
+          occupation == 'requestsMedic'
+              ? ListTile(
+                  leading: Container(
+                    width: 16,
+                    child: Icon(
+                      Icons.format_align_justify,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                  title: Text('FORMULÁRIO'),
+                  onTap: () async {
+                    Navigator.of(context).pop();
+                    openForm(context);
+                  },
+                )
+              : Container(),
           ListTile(
             leading: Container(
               width: 16,

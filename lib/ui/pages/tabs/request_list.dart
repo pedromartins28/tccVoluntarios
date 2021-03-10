@@ -224,7 +224,7 @@ class _StateRequestList extends State<RequestList>
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Icon(FontAwesomeIcons.recycle,
+              Icon(FontAwesomeIcons.check,
                   color: Theme.of(context).primaryColor),
               Text("ACEITAR"),
             ],
