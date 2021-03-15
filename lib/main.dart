@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider<MapState>(
       create: (_) => MapState(),
       child: MaterialApp(
-        title: 'Coronapp2',
+        title: 'Saúde em Casa - Ajuda',
         //Theme was built in ui/theme.dart
         theme: buildTheme(),
         //Remove scroll glow
