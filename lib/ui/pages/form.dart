@@ -56,26 +56,28 @@ class _FormPageState extends State<FormPage> {
     donorId = request['donorId'];
 
     _db.collection('donors').document(donorId).get().then((snapshot) {
-      _quest01 = snapshot.data['quest01'];
-      _quest02 = snapshot.data['quest02'];
-      _quest03 = snapshot.data['quest03'];
-      _quest04 = snapshot.data['quest04'];
-      _quest05 = snapshot.data['quest05'];
-      _quest06 = snapshot.data['quest06'];
-      _quest07 = snapshot.data['quest07'];
-      _quest08 = snapshot.data['quest08'];
-      _quest09 = snapshot.data['quest09'];
-      _quest10 = snapshot.data['quest10'];
-      _quest11 = snapshot.data['quest11'];
-      _quest12 = snapshot.data['quest12'];
-      _quest13 = snapshot.data['quest13'];
-      _quest14 = snapshot.data['quest14'];
-      _quest15 = snapshot.data['quest15'];
-      _quest16 = snapshot.data['quest16'];
-      _quest17 = snapshot.data['quest17'];
-      _quest18 = snapshot.data['quest18'];
-      _quest19 = snapshot.data['quest19'];
-      _quest20.text = snapshot.data['quest20'];
+      setState(() {
+        _quest01 = snapshot.data['quest01'];
+        _quest02 = snapshot.data['quest02'];
+        _quest03 = snapshot.data['quest03'];
+        _quest04 = snapshot.data['quest04'];
+        _quest05 = snapshot.data['quest05'];
+        _quest06 = snapshot.data['quest06'];
+        _quest07 = snapshot.data['quest07'];
+        _quest08 = snapshot.data['quest08'];
+        _quest09 = snapshot.data['quest09'];
+        _quest10 = snapshot.data['quest10'];
+        _quest11 = snapshot.data['quest11'];
+        _quest12 = snapshot.data['quest12'];
+        _quest13 = snapshot.data['quest13'];
+        _quest14 = snapshot.data['quest14'];
+        _quest15 = snapshot.data['quest15'];
+        _quest16 = snapshot.data['quest16'];
+        _quest17 = snapshot.data['quest17'];
+        _quest18 = snapshot.data['quest18'];
+        _quest19 = snapshot.data['quest19'];
+        _quest20.text = snapshot.data['quest20'];
+      });
     });
   }
 

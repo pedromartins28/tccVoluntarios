@@ -24,13 +24,13 @@ class NotificationHandler {
   TabController tabController;
   GlobalKey<ScaffoldState> homePageScaffoldKey;
 
-  NotificationHandler(
-      {this.context,
-      this.userId,
-      this.panel,
-      this.tabController,
-      this.homePageScaffoldKey,
-      String occupation});
+  NotificationHandler({
+    this.context,
+    this.userId,
+    this.panel,
+    this.tabController,
+    this.homePageScaffoldKey,
+  });
 
   setupNotifications() {
     appState = StateWidget.of(context).state;

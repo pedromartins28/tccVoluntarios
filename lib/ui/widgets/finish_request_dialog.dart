@@ -89,7 +89,17 @@ class _FinishRequestDialogState extends State<FinishRequestDialog> {
                             'finishedRequests': FieldValue.increment(1),
                             'chatNotification': 0,
                             'requestNotification': null,
-                            'finishedRequestNotification': true
+                            'finishedRequestNotification': true,
+                          });
+                        });
+                        _db
+                            .collection('pickers')
+                            .document(document['pickerId'])
+                            .get()
+                            .then((DocumentSnapshot picker) async {
+                          print(picker.data.toString());
+                          await picker.reference.updateData({
+                            'finishedRequests': FieldValue.increment(1),
                           });
                         });
 

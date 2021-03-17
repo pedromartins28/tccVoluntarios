@@ -452,49 +452,49 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ),
               ],
             ),
-            Container(
-              margin: EdgeInsets.only(top: 2.0),
-              child: Card(
-                elevation: 2.0,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Icon(Icons.notifications_active, size: 20.0),
-                    Text(
-                      "RECEBER NOTIFICAÇÕES",
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    StreamBuilder(
-                      stream: Firestore.instance
-                          .collection('pickers')
-                          .where('userId', isEqualTo: userId)
-                          .snapshots(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          _isActive = snapshot.data.documents[0]['isActive'];
-                          return Switch(
-                            value: _isActive,
-                            activeTrackColor:
-                                Colors.green[300].withOpacity(0.5),
-                            activeColor: Colors.green[600],
-                            onChanged: (value) {
-                              snapshot.data.documents[0].reference.updateData(
-                                {'isActive': _isActive ? false : true},
-                              );
-                            },
-                          );
-                        } else {
-                          return Container();
-                        }
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            // Container(
+            //   margin: EdgeInsets.only(top: 2.0),
+            //   child: Card(
+            //     elevation: 2.0,
+            //     child: Row(
+            //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //       children: <Widget>[
+            //         Icon(Icons.notifications_active, size: 20.0),
+            //         Text(
+            //           "RECEBER NOTIFICAÇÕES",
+            //           style: TextStyle(
+            //             fontSize: 16.0,
+            //             fontWeight: FontWeight.w400,
+            //           ),
+            //         ),
+            //         StreamBuilder(
+            //           stream: Firestore.instance
+            //               .collection('pickers')
+            //               .where('userId', isEqualTo: userId)
+            //               .snapshots(),
+            //           builder: (context, snapshot) {
+            //             if (snapshot.hasData) {
+            //               _isActive = snapshot.data.documents[0]['isActive'];
+            //               return Switch(
+            //                 value: _isActive,
+            //                 activeTrackColor:
+            //                     Colors.green[300].withOpacity(0.5),
+            //                 activeColor: Colors.green[600],
+            //                 onChanged: (value) {
+            //                   snapshot.data.documents[0].reference.updateData(
+            //                     {'isActive': _isActive ? false : true},
+            //                   );
+            //                 },
+            //               );
+            //             } else {
+            //               return Container();
+            //             }
+            //           },
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),
