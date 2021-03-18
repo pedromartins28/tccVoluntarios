@@ -5,14 +5,14 @@ import 'package:voluntario/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:voluntario/util/validator.dart';
 
-class FormPage extends StatefulWidget {
+class InfosPage extends StatefulWidget {
   final Map request;
-  FormPage({@required this.request});
+  InfosPage({@required this.request});
 
-  _FormPageState createState() => _FormPageState();
+  _InfosPageState createState() => _InfosPageState();
 }
 
-class _FormPageState extends State<FormPage> {
+class _InfosPageState extends State<InfosPage> {
   final ScrollController listScrollController = ScrollController();
   final Firestore _db = Firestore.instance;
   bool _visible = false;
@@ -33,15 +33,10 @@ class _FormPageState extends State<FormPage> {
       _quest10 = false,
       _quest11 = false,
       _quest12 = false,
-      _quest13 = false,
-      _quest14 = false,
-      _quest15 = false,
-      _quest16 = false,
-      _quest17 = false,
-      _quest18 = false,
-      _quest19 = false;
+      _quest13 = false;
 
-  final TextEditingController _quest20 = TextEditingController();
+  final TextEditingController _allergyText = TextEditingController();
+  final TextEditingController _medicText = TextEditingController();
 
   @override
   void initState() {
@@ -55,7 +50,7 @@ class _FormPageState extends State<FormPage> {
     pickerId = request['pickerId'];
     donorId = request['donorId'];
 
-    _db.collection('donors').document(donorId).get().then((snapshot) {
+    _db.collection('requestsMedic').document(requestId).get().then((snapshot) {
       setState(() {
         _quest01 = snapshot.data['quest01'];
         _quest02 = snapshot.data['quest02'];
@@ -70,13 +65,14 @@ class _FormPageState extends State<FormPage> {
         _quest11 = snapshot.data['quest11'];
         _quest12 = snapshot.data['quest12'];
         _quest13 = snapshot.data['quest13'];
-        _quest14 = snapshot.data['quest14'];
-        _quest15 = snapshot.data['quest15'];
-        _quest16 = snapshot.data['quest16'];
-        _quest17 = snapshot.data['quest17'];
-        _quest18 = snapshot.data['quest18'];
-        _quest19 = snapshot.data['quest19'];
-        _quest20.text = snapshot.data['quest20'];
+        _allergyText.text = snapshot.data['allergyText'];
+        _medicText.text = snapshot.data['medicText'];
+        if (_allergyText.text == 'Possui Alergia? Qual?') {
+          _allergyText.text = 'Sem alergias.';
+        }
+        if (_medicText.text == 'Está usando algum medicamento? Qual?') {
+          _medicText.text = 'Sem medicamentos.';
+        }
       });
     });
   }
@@ -104,7 +100,7 @@ class _FormPageState extends State<FormPage> {
         controller: _controller,
         textColor: Colors.white,
         labelColor: Colors.white,
-        read: false,
+        read: true,
       ),
     );
   }
@@ -132,44 +128,13 @@ class _FormPageState extends State<FormPage> {
     );
   }
 
-  void finishForm() async {
-    Firestore.instance.collection('donors').document(donorId).updateData(
-      {
-        'quest01': _quest01,
-        'quest02': _quest02,
-        'quest03': _quest03,
-        'quest04': _quest04,
-        'quest05': _quest05,
-        'quest06': _quest06,
-        'quest07': _quest07,
-        'quest08': _quest08,
-        'quest09': _quest09,
-        'quest00': _quest10,
-        'quest11': _quest11,
-        'quest12': _quest12,
-        'quest13': _quest13,
-        'quest14': _quest14,
-        'quest15': _quest15,
-        'quest16': _quest16,
-        'quest17': _quest17,
-        'quest18': _quest18,
-        'quest19': _quest19,
-        'quest20': _quest20.text,
-      },
-    );
-
-    setState(() {
-      Navigator.pop(context);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.red[300].withOpacity(0.9),
       appBar: AppBar(
         title: Text(
-          "Formulário",
+          "Informações Médicas",
         ),
         centerTitle: true,
       ),
@@ -191,213 +156,118 @@ class _FormPageState extends State<FormPage> {
                         child: Column(
                           children: <Widget>[
                             LabeledCheckbox(
-                              label:
-                                  'Você tem alguma doença cardíaca descompensada?',
+                              label: 'Você está com febre acima de 37,8°C?',
                               padding: EdgeInsets.fromLTRB(20, 15, 20, 5),
                               value: _quest01,
                               onChanged: (bool newValue) {
-                                setState(() {
-                                  _quest01 = newValue;
-                                });
+                                setState(() {});
                               },
                             ),
                             LabeledCheckbox(
-                              label: 'Você tem doença cardíaca congênita?',
+                              label: 'Você está tossindo?',
                               padding: EdgeInsets.fromLTRB(20, 15, 20, 5),
                               value: _quest02,
                               onChanged: (bool newValue) {
-                                setState(() {
-                                  _quest02 = newValue;
-                                });
+                                setState(() {});
                               },
                             ),
                             LabeledCheckbox(
                               label:
-                                  'Você tem insuficiência cardíaca mal controlada?',
+                                  'Você está espirrando, com o nariz escorrendo ou com nariz entupido?',
                               padding: EdgeInsets.fromLTRB(20, 15, 20, 5),
                               value: _quest03,
                               onChanged: (bool newValue) {
-                                setState(() {
-                                  _quest03 = newValue;
-                                });
+                                setState(() {});
                               },
                             ),
                             LabeledCheckbox(
                               label:
-                                  'Você tem doença cardíaca isquêmica descompensada?',
+                                  'Você está com dificuldade para respirar, ou a respiração está\n ofegante?',
                               padding: EdgeInsets.fromLTRB(20, 15, 20, 5),
                               value: _quest04,
                               onChanged: (bool newValue) {
-                                setState(() {
-                                  _quest04 = newValue;
-                                });
+                                setState(() {});
                               },
                             ),
                             LabeledCheckbox(
-                              label:
-                                  'Você tem alguma doença respiratória descompensada?',
+                              label: 'Você está com dor de garganta?',
                               padding: EdgeInsets.fromLTRB(20, 15, 20, 5),
                               value: _quest05,
                               onChanged: (bool newValue) {
-                                setState(() {
-                                  _quest05 = newValue;
-                                });
+                                setState(() {});
                               },
                             ),
                             LabeledCheckbox(
                               label:
-                                  'Você tem asma ou doença pulmonar obstrutiva crônica (DPOC) mal controlado?',
+                                  'Você está com dor ou sentindo pressão no peito?',
                               padding: EdgeInsets.fromLTRB(20, 15, 20, 5),
                               value: _quest06,
                               onChanged: (bool newValue) {
-                                setState(() {
-                                  _quest06 = newValue;
-                                });
+                                setState(() {});
                               },
                             ),
                             LabeledCheckbox(
-                              label:
-                                  'Você tem alguma doenças pulmonar com complicações?',
+                              label: 'Você está com arrepios ou com calafrios?',
                               padding: EdgeInsets.fromLTRB(20, 15, 20, 5),
                               value: _quest07,
                               onChanged: (bool newValue) {
-                                setState(() {
-                                  _quest07 = newValue;
-                                });
+                                setState(() {});
                               },
                             ),
                             LabeledCheckbox(
-                              label:
-                                  'Você tem fibrose cística com infecções recorrentes?',
+                              label: 'Você está com dor muscular?',
                               padding: EdgeInsets.fromLTRB(20, 15, 20, 5),
                               value: _quest08,
                               onChanged: (bool newValue) {
-                                setState(() {
-                                  _quest08 = newValue;
-                                });
+                                setState(() {});
                               },
                             ),
                             LabeledCheckbox(
-                              label:
-                                  'Você tem displasia broncopulmonar com complicações?',
+                              label: 'Em crianças: batimento da asa do nariz?',
                               padding: EdgeInsets.fromLTRB(20, 15, 20, 5),
                               value: _quest09,
                               onChanged: (bool newValue) {
-                                setState(() {
-                                  _quest09 = newValue;
-                                });
+                                setState(() {});
                               },
                             ),
                             LabeledCheckbox(
                               label:
-                                  'Crianças prematuras com doença pulmonar crônica?',
+                                  'Você está com dificuldade em sentir cheiros?',
                               padding: EdgeInsets.fromLTRB(20, 15, 20, 5),
                               value: _quest10,
                               onChanged: (bool newValue) {
-                                setState(() {
-                                  _quest10 = newValue;
-                                });
+                                setState(() {});
                               },
                             ),
                             LabeledCheckbox(
-                              label:
-                                  'Você tem alguma doença renal crônica em estágio avançado (graus 3, 4 e 5)?',
+                              label: 'Você está com diarreia?',
                               padding: EdgeInsets.fromLTRB(20, 15, 20, 5),
                               value: _quest11,
                               onChanged: (bool newValue) {
-                                setState(() {
-                                  _quest11 = newValue;
-                                });
+                                setState(() {});
                               },
                             ),
                             LabeledCheckbox(
                               label:
-                                  'Você tem alguma doença cromossômica (por exemplo: Síndrome de Down)?',
+                                  'Você está com os lábios ou a face arroxeados?',
                               padding: EdgeInsets.fromLTRB(20, 15, 20, 5),
                               value: _quest12,
                               onChanged: (bool newValue) {
-                                setState(() {
-                                  _quest12 = newValue;
-                                });
+                                setState(() {});
                               },
                             ),
                             LabeledCheckbox(
-                              label: 'Você tem diabetes?',
+                              label: 'Você acha que está com confusão mental?',
                               padding: EdgeInsets.fromLTRB(20, 15, 20, 5),
                               value: _quest13,
                               onChanged: (bool newValue) {
-                                setState(() {
-                                  _quest13 = newValue;
-                                });
+                                setState(() {});
                               },
                             ),
-                            LabeledCheckbox(
-                              label:
-                                  'Se você está grávida, é gravidez de alto risco?',
-                              padding: EdgeInsets.fromLTRB(20, 15, 20, 5),
-                              value: _quest14,
-                              onChanged: (bool newValue) {
-                                setState(() {
-                                  _quest14 = newValue;
-                                });
-                              },
-                            ),
-                            LabeledCheckbox(
-                              label:
-                                  'Você tem alguma doença no fígado em estágio avançado?',
-                              padding: EdgeInsets.fromLTRB(20, 15, 20, 5),
-                              value: _quest15,
-                              onChanged: (bool newValue) {
-                                setState(() {
-                                  _quest15 = newValue;
-                                });
-                              },
-                            ),
-                            LabeledCheckbox(
-                              label:
-                                  'Você está obeso com IMC igual ou maior que 40?',
-                              padding: EdgeInsets.fromLTRB(20, 15, 20, 5),
-                              value: _quest16,
-                              onChanged: (bool newValue) {
-                                setState(() {
-                                  _quest16 = newValue;
-                                });
-                              },
-                            ),
-                            LabeledCheckbox(
-                              label: 'Você faz diálise ou hemodiálise?',
-                              padding: EdgeInsets.fromLTRB(20, 15, 20, 5),
-                              value: _quest17,
-                              onChanged: (bool newValue) {
-                                setState(() {
-                                  _quest17 = newValue;
-                                });
-                              },
-                            ),
-                            LabeledCheckbox(
-                              label:
-                                  'Você já recebeu algum transplante de órgãos sólidos e de medula óssea ?',
-                              padding: EdgeInsets.fromLTRB(20, 15, 20, 5),
-                              value: _quest18,
-                              onChanged: (bool newValue) {
-                                setState(() {
-                                  _quest18 = newValue;
-                                });
-                              },
-                            ),
-                            LabeledCheckbox(
-                              label: 'Você faz quimioterapia ou radioterapia?',
-                              padding: EdgeInsets.fromLTRB(20, 15, 20, 5),
-                              value: _quest19,
-                              onChanged: (bool newValue) {
-                                setState(() {
-                                  _quest19 = newValue;
-                                });
-                              },
-                            ),
-                            inputForm(_quest20, "Outras doenças?",
+                            inputForm(_allergyText, "Usando algum medicamento?",
                                 Icons.local_hospital, TextInputType.text),
-                            botao("Salvar", finishForm),
+                            inputForm(_medicText, "Alguma alergia?",
+                                Icons.local_hospital, TextInputType.text),
                           ],
                         ),
                       ),

@@ -1,4 +1,5 @@
 import 'package:voluntario/ui/pages/form.dart';
+import 'package:voluntario/ui/pages/infos.dart';
 import 'package:voluntario/ui/pages/main/about.dart';
 import 'package:voluntario/ui/pages/change_pass.dart';
 import 'package:voluntario/ui/pages/main/finished_requests.dart';
@@ -50,6 +51,14 @@ class RouteGenerator {
           return FadeRoute(
             settings: RouteSettings(name: '/form', arguments: args['donorId']),
             page: FormPage(request: args),
+          );
+        }
+        return _errorRoute();
+      case '/infos':
+        if (args is Map) {
+          return FadeRoute(
+            settings: RouteSettings(name: '/infos', arguments: args['donorId']),
+            page: InfosPage(request: args),
           );
         }
         return _errorRoute();

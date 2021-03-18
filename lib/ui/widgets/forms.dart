@@ -10,6 +10,7 @@ class CustomField extends StatelessWidget {
   final Color labelColor;
   final String labelText;
   final bool obscureText;
+  final bool read;
   final Color iconColor;
   final Color textColor;
   final IconData prefixIcon;
@@ -17,23 +18,23 @@ class CustomField extends StatelessWidget {
   final bool enable;
   final IconData icon;
 
-  const CustomField({
-    this.action = TextInputAction.next,
-    this.obscureText = false,
-    this.onFieldSubmitted,
-    this.controller,
-    this.labelColor,
-    this.labelText,
-    this.validator,
-    this.inputType,
-    this.iconColor,
-    this.textColor,
-    this.textCap,
-    this.prefixIcon,
-    this.enable,
-    this.icon,
-    this.node,
-  });
+  const CustomField(
+      {this.action = TextInputAction.next,
+      this.obscureText = false,
+      this.onFieldSubmitted,
+      this.controller,
+      this.labelColor,
+      this.labelText,
+      this.validator,
+      this.inputType,
+      this.iconColor,
+      this.textColor,
+      this.textCap,
+      this.prefixIcon,
+      this.enable,
+      this.icon,
+      this.node,
+      this.read});
 
   @override
   Widget build(BuildContext context) {
@@ -72,6 +73,7 @@ class CustomField extends StatelessWidget {
       controller: controller,
       validator: validator,
       focusNode: node,
+      readOnly: read,
     );
   }
 }

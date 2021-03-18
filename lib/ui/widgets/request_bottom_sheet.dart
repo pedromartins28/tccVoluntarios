@@ -77,6 +77,16 @@ class _RequestBottomSheetState extends State<RequestBottomSheet> {
     Navigator.of(context).pushNamed('/form', arguments: request);
   }
 
+  void openInfo(BuildContext context) {
+    Map request = {
+      'pickerId': document['pickerId'],
+      'donorId': document['donorId'],
+      'requestId': document.documentID,
+    };
+
+    Navigator.of(context).pushNamed('/infos', arguments: request);
+  }
+
   @override
   Widget build(BuildContext context) {
     appState = StateWidget.of(context).state;
@@ -122,6 +132,22 @@ class _RequestBottomSheetState extends State<RequestBottomSheet> {
             width: double.infinity,
             color: Colors.grey,
           ),
+          occupation == 'requestsMedic'
+              ? ListTile(
+                  leading: Container(
+                    width: 16,
+                    child: Icon(
+                      Icons.info,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                  title: Text('INFORMAÇÕES MÉDICAS'),
+                  onTap: () async {
+                    Navigator.of(context).pop();
+                    openInfo(context);
+                  },
+                )
+              : Container(),
           occupation == 'requestsMedic'
               ? ListTile(
                   leading: Container(

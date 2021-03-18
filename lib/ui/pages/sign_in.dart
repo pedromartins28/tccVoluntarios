@@ -130,6 +130,7 @@ class _SignInPageState extends State<SignInPage> {
       textColor: Colors.white,
       iconColor: Colors.white,
       controller: _email,
+      read: false,
     );
   }
 
@@ -149,6 +150,7 @@ class _SignInPageState extends State<SignInPage> {
       controller: _pass,
       obscureText: true,
       node: _passFocus,
+      read: false,
     );
   }
 
