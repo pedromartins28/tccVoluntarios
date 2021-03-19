@@ -390,7 +390,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     mainAxisSize: MainAxisSize.max,
                     children: <Widget>[
                       Text(
-                        "SUAS COLETAS",
+                        "SEUS ATENDIMENTOS",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 24.0,
