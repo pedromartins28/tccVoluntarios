@@ -38,7 +38,7 @@ class _FinishRequestDialogState extends State<FinishRequestDialog> {
           Container(
             padding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
             child: Text(
-              "COLETA FINALIZADA?",
+              "SOLICITAÇÃO FINALIZADA?",
               style: TextStyle(
                 fontSize: 18,
               ),
@@ -113,7 +113,7 @@ class _FinishRequestDialogState extends State<FinishRequestDialog> {
                         });
                       }).catchError((onError) {
                         Flushbar(
-                          message: "Não foi possível finalizar a coleta",
+                          message: "Não foi possível finalizar a solicitação",
                           duration: Duration(seconds: 3),
                           isDismissible: false,
                         )..show(context);

@@ -203,7 +203,7 @@ class _MarkerDialogState extends State<MarkerDialog> {
                           });
                         }).catchError((error) {
                           Flushbar(
-                            message: "Não foi possível aceitar a coleta",
+                            message: "Não foi possível aceitar a solicitação",
                             duration: Duration(seconds: 3),
                             isDismissible: false,
                           )..show(context);

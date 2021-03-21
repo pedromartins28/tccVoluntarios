@@ -209,7 +209,7 @@ class _ChatPageState extends State<ChatPage> {
                 if (snapshot.data.documents.isEmpty) {
                   return Center(
                     child: Text(
-                      "Está coleta não está disponível.",
+                      "Essa solicitação não está disponível.",
                     ),
                   );
                 } else {

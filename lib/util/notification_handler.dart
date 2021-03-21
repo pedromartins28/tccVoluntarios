@@ -140,7 +140,7 @@ class NotificationHandler {
                   Container(
                     padding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
                     child: Text(
-                      "SUA COLETA FOI CANCELADA PELO DOADOR",
+                      "SUA SOLICITAÇÃO FOI CANCELADA PELO USUÁRIO",
                       style: TextStyle(
                         fontSize: 18,
                       ),

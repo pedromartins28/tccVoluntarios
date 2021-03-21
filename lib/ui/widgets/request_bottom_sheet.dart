@@ -276,7 +276,7 @@ class _RequestBottomSheetState extends State<RequestBottomSheet> {
                 Container(
                   padding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 0.0),
                   child: Text(
-                    "DISPENSAR COLETA?",
+                    "DISPENSAR SOLICITAÇÃO?",
                     style: TextStyle(
                       fontSize: 18,
                     ),
@@ -286,7 +286,7 @@ class _RequestBottomSheetState extends State<RequestBottomSheet> {
                 Container(
                   padding: EdgeInsets.fromLTRB(32.0, 4.0, 32.0, 20.0),
                   child: Text(
-                    "AVISE O DOADOR ANTES DE DISPENSA-LO!",
+                    "AVISE O USUÁRIO ANTES DE DISPENSA-LO!",
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
                     textAlign: TextAlign.center,
                   ),
@@ -382,7 +382,8 @@ class _RequestBottomSheetState extends State<RequestBottomSheet> {
                               });
                             }).catchError((error) {
                               Flushbar(
-                                message: "Não foi possível dispensar a coleta",
+                                message:
+                                    "Não foi possível dispensar a solicitação",
                                 duration: Duration(seconds: 3),
                                 isDismissible: false,
                               )..show(context);
@@ -453,7 +454,7 @@ class _RequestBottomSheetState extends State<RequestBottomSheet> {
       else {
         Flushbar(
           message:
-              "Só é possível dispensar uma coleta com uma hora de antecedência ou após o Horário de Coleta.",
+              "Só é possível dispensar uma solicitação com uma hora de antecedência ou após o Horário da Solicitação.",
           duration: Duration(seconds: 4),
           isDismissible: false,
         )..show(context);

@@ -623,7 +623,7 @@ class _StateRequestList extends State<RequestList>
                 Container(
                   padding: EdgeInsets.fromLTRB(24.0, 8.0, 24.0, 20.0),
                   child: Text(
-                    "TENHA CERTEZA QUE DESEJA REALIZAR A COLETA.",
+                    "TENHA CERTEZA QUE DESEJA REALIZAR A SOLICITAÇÃO.",
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w300,
@@ -680,7 +680,8 @@ class _StateRequestList extends State<RequestList>
                               });
                             }).catchError((error) {
                               Flushbar(
-                                message: "Não foi possível aceitar a coleta",
+                                message:
+                                    "Não foi possível aceitar a solicitação",
                                 duration: Duration(seconds: 3),
                                 isDismissible: false,
                               )..show(context);
