@@ -264,9 +264,9 @@ class _InfosPageState extends State<InfosPage> {
                                 setState(() {});
                               },
                             ),
-                            inputForm(_allergyText, "Usando algum medicamento?",
+                            inputForm(_medicText, "Usando algum medicamento?",
                                 Icons.local_hospital, TextInputType.text),
-                            inputForm(_medicText, "Alguma alergia?",
+                            inputForm(_allergyText, "Alguma alergia?",
                                 Icons.local_hospital, TextInputType.text),
                           ],
                         ),

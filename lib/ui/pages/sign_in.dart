@@ -306,7 +306,7 @@ class _SignInPageState extends State<SignInPage> {
   }
 
   _launchURL() async {
-    const url = 'https://coronapp.web.app/download/policy1.html';
+    const url = 'https://saudeemcasa-cefet.web.app/download/policy1.html';
     if (await canLaunch(url)) {
       await launch(url);
     } else {
