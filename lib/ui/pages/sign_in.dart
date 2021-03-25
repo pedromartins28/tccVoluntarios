@@ -66,7 +66,7 @@ class _SignInPageState extends State<SignInPage> {
                         backgroundColor: Colors.transparent,
                         radius: 75.0,
                         child: Image.asset(
-                          'assets/logo.png',
+                          'assets/logo2.png',
                           fit: BoxFit.cover,
                         ),
                       ),
