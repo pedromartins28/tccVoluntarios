@@ -368,7 +368,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         ),
                       ),
                       Text(
-                        "CLIQUE EM UM PARA VÊ-LO NO MAPA",
+                        "CLIQUE EM UMA PARA VÊ-LA NO MAPA",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 12.0,
