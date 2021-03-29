@@ -341,7 +341,7 @@ class _UserInfoPageState extends State<UserInfoPage>
                         Container(
                           padding: EdgeInsets.fromLTRB(48.0, 8.0, 48.0, 16.0),
                           child: Text(
-                            "Para a alterar seus dados entre em contato com a ${user.institutionName}",
+                            "Para alterar seus dados entre em contato com a ${user.institutionName}",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontWeight: FontWeight.w200, fontSize: 12),
