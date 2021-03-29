@@ -141,7 +141,7 @@ class _RequestBottomSheetState extends State<RequestBottomSheet> {
                       color: Theme.of(context).primaryColor,
                     ),
                   ),
-                  title: Text('INFORMAÇÕES MÉDICAS'),
+                  title: Text('INFORMAÇÕES DE SAÚDE'),
                   onTap: () async {
                     Navigator.of(context).pop();
                     openInfo(context);

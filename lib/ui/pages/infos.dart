@@ -134,7 +134,7 @@ class _InfosPageState extends State<InfosPage> {
       backgroundColor: Colors.red[300].withOpacity(0.9),
       appBar: AppBar(
         title: Text(
-          "Informações Médicas",
+          "Informações de Saúde",
         ),
         centerTitle: true,
       ),
