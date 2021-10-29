@@ -1,3 +1,3 @@
-# TODO's:
-- Redesign do Login
-- Implementar da Lista de Catadores Dispensados
+# TCC: Saúde em Casa
+
+Flutter app to accept requests from Saúde em Casa
